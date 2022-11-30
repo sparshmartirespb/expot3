@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 
 import {
   SafeAreaView,
@@ -8,26 +8,15 @@ import {
   View,
 } from "react-native"
 
-import { FlashList } from "@shopify/flash-list"
-import type { inferProcedureOutput } from "@trpc/server"
-import type { AppRouter } from "@acme/api"
-
 import { trpc } from "../utils/trpc"
 
-
 const CreatePost: React.FC = () => {
-
   const utils = trpc.useContext()
-
-
-
-  const [email, onChangeEmail] = React.useState("")
-  const [password, onChangePassword] = React.useState("")
-  const [loggedIn, setLoggedIn] = React.useState(false)
-  const [error, setError] = React.useState(false)
-
-
-  const validate = async () => {
+  const [email, onChangeEmail] = React.useState<string>("")
+  const [password, onChangePassword] = React.useState<string>("")
+  const [loggedIn, setLoggedIn] = React.useState<Boolean>(false)
+  const [error, setError] = React.useState<Boolean>(false)
+  const validate = async (): Promise<void> => {
     const data = await utils.authEmail.auth.fetch({
       email,
       password
@@ -40,9 +29,6 @@ const CreatePost: React.FC = () => {
       setError(true)
     }
   }
-
-
-
 
   return (
     <>
@@ -70,8 +56,7 @@ const CreatePost: React.FC = () => {
   )
 }
 
-export const HomeScreen = () => {
-
+export const HomeScreen: React.FC = () => {
   return (
     <SafeAreaView className="bg-[#2e026d] bg-gradient-to-b from-[#2e026d] to-[#15162c]">
       <View className="h-full w-full p-4">
